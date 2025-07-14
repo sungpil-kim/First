@@ -101,4 +101,151 @@ try:
 
 except ValueError:
     print("잘못된 입력입니다. 숫자를 입력해 주세요.")
-    ```
+```
+## 텐서플로어 외부 데이터 가져오기 기초
+
+### 1. 빈칸 삭제 여부 확인 코드
+```
+import pandas as pd
+
+# 1. 파일 읽기
+data = pd.read_csv('gpascore.csv')
+
+# 2. 빈칸이 있는지 확인
+print(data.isnull().sum())
+# 출력값 - gre 1 => gre 항목에 1개의 빈칸
+
+# 3. 빈칸을 삭제
+data = data.dropna()
+
+# 4. 빈칸 삭제 여부 확인
+print(data.isnull().sum())
+```
+### 2. 빈칸에 원하는 값을 채우고 확인 코드
+```
+import pandas as pd
+
+# 1. 파일 읽기
+data = pd.read_csv('gpascore.csv')
+
+# 2. 빈칸이 있는지 확인
+print(data.isnull().sum())
+
+# 3. 빈칸이 있는 행의 인덱스를 식별
+# axis=1 : 행(row) 방향 적용
+# axis=0 : 열(column) 방향 적용
+# data[data.isnull().any(axis=1)].index => 빈칸이 있는 행의 인덱스 번호를 반환
+# data.isnull().any(axis=1) => 빈칸이 있는 행의 T/F 반환
+null_indices = data[data.isnull().any(axis=1)].index
+
+# 4. 빈칸을 100으로 채우고 data_filled 변수에 저장
+data_filled = data.fillna(100)
+
+# 5. 빈칸이 있던 행만 출력하여 100으로 채워졌는지 확인
+# .loc : 해당 인덱스에 해당하는 모든 행 선택
+print(data_filled.loc[null_indices])
+```
+
+### 3. 원하는 열만 출력 방법
+```
+import pandas as pd
+
+# 1. 파일 읽기
+data = pd.read_csv('gpascore.csv')
+
+# 2. 원하는 열의 이름 입력
+print(data['gpa'])
+
+# 3. 원하는 열의 최솟값 파악
+print(data['gpa'].min())
+
+# 4. 원하는 열의 개수 파악
+print(data['gpa'].count())
+```
+
+## 텐서플로어 실습(2) - csv 데이터를 활용하여 대학원 합격 예측 실습
+```
+import pandas as pd
+import numpy as np
+import tensorflow as tf
+# 데이터 표준화 수행 도구
+# 입력 데이터를 변환하여 평균이 0, 표준편차가 1
+from sklearn.preprocessing import StandardScaler
+
+# 1. 파일 읽기
+# 'gpascore.csv' 파일이 필요합니다.
+try:
+    data = pd.read_csv('gpascore.csv')
+except FileNotFoundError:
+    print("Error: 'gpascore.csv' 파일을 찾을 수 없습니다. 파일을 업로드하거나 경로를 확인해주세요.")
+    exit()
+
+# 2. 빈칸 삭제
+data = data.dropna()
+
+# 3. 데이터 분리 및 전처리 개선
+# 목표 변수 (Target Variable) - 해당 변수를 통해 모델 예측 정확한지 평가 및 개선
+y데이터 = data['admit'].values
+
+# 특징 변수 (Features) - gre, gpa, rank를 토대로 목표 변수 예측
+# pandas의 열 선택을 사용, x데이터를 추출
+x데이터_df = data[['gre', 'gpa', 'rank']]
+
+# 4. 데이터 표준화 (Standardization)
+# StandardScaler를 사용하여 특징 데이터의 스케일을 조정
+scaler = StandardScaler()
+x데이터_scaled = scaler.fit_transform(x데이터_df)
+
+# 텐서플로우 모델에 입력하기 위해 넘파이 배열로 변환
+x데이터 = np.array(x데이터_scaled)
+
+# 5. 텐서플로우 모델 정의 및 훈련
+# 활성화 함수를 'relu'로 변경하여 성능을 개선할 수 있습니다.
+model = tf.keras.models.Sequential([
+    tf.keras.layers.Dense(64, activation='relu'),
+    tf.keras.layers.Dense(128, activation='relu'),
+    tf.keras.layers.Dense(1, activation='sigmoid')
+])
+
+# binary_crossent : 이진 분류 문제에 사용되는 표준 손실 함수
+# metrics=['accuracy'] : 평가 지표 - 올바르게 예측한 비율
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+
+print("모델 훈련 시작...")
+model.fit(x데이터, np.array(y데이터), epochs=1000)
+print("모델 훈련 완료.")
+
+# 6. # 사용자 입력 받아서 성적에 따른 합격 여부 예측
+try:
+    # 사용자로부터 쉼표로 구분된 GRE, GPA, RANK 값 입력받기
+    user_input_str = input("\n[GRE, GPA, RANK] 순서로 쉼표(,)를 사용하여 입력하세요 (예: 700, 3.5, 2): ")
+    
+    # 입력된 문자열을 쉼표로 분리하고 각각 숫자로 변환
+    # 이 과정에서 값이 3개가 아니거나 숫자가 아니면 ValueError가 발생
+    input_values = [float(x.strip()) for x in user_input_str.split(',')]
+    
+    # 입력된 값들을 넘파이 2차원 배열 형태로 변환
+    user_data_np = np.array([input_values])
+
+    # 훈련 시 사용한 scaler로 예측 데이터를 표준화
+    # (이전 단계에서 scaler.fit_transform()을 통해 정의된 scaler 사용)
+    user_data_scaled = scaler.transform(user_data_np)
+
+    # 예측 수행
+    prediction = model.predict(user_data_scaled)
+    
+    # 예측 결과 출력
+    print("\n예측 결과 (합격 확률):", prediction[0][0])
+    
+    # 0.5를 기준으로 합격/불합격 여부 판단
+    if prediction[0][0] > 0.5:
+        print("예측: 합격할 것으로 예상됩니다.")
+    else:
+        print("예측: 불합격할 것으로 예상됩니다.")
+
+# 입력 형식이 잘못되었을 때 발생하는 오류 처리
+except ValueError:
+    print("\n입력 오류: 유효한 숫자 3개를 쉼표(,)로 구분하여 입력해주세요.")
+except Exception as e:
+    print(f"\n예상치 못한 오류가 발생했습니다: {e}")
+```
