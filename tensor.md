@@ -102,9 +102,9 @@ try:
 except ValueError:
     print("잘못된 입력입니다. 숫자를 입력해 주세요.")
 ```
-## 텐서플로어 외부 데이터 가져오기 기초
+## 3. 텐서플로어 외부 데이터 가져오기 기초
 
-### 1. 빈칸 삭제 여부 확인 코드
+### (1) 빈칸 삭제 여부 확인 코드
 ```
 import pandas as pd
 
@@ -121,7 +121,7 @@ data = data.dropna()
 # 4. 빈칸 삭제 여부 확인
 print(data.isnull().sum())
 ```
-### 2. 빈칸에 원하는 값을 채우고 확인 코드
+### (2) 빈칸에 원하는 값을 채우고 확인 코드
 ```
 import pandas as pd
 
@@ -146,7 +146,7 @@ data_filled = data.fillna(100)
 print(data_filled.loc[null_indices])
 ```
 
-### 3. 원하는 열만 출력 방법
+### (3) 원하는 열만 출력 방법
 ```
 import pandas as pd
 
@@ -163,7 +163,7 @@ print(data['gpa'].min())
 print(data['gpa'].count())
 ```
 
-## 텐서플로어 실습(2) - csv 데이터를 활용하여 대학원 합격 예측 실습
+## 4. 텐서플로어 실습(2) - csv 데이터를 활용하여 대학원 합격 예측 실습
 ```
 import pandas as pd
 import numpy as np
