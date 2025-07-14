@@ -1,7 +1,7 @@
 # 텐서플로어 기초 강의 요약
 
 ## 1. 텐서플로어 기초
-'''python
+```python
 import tensorflow as tf
 
 # 1차원 구조
@@ -30,10 +30,10 @@ print(텐서3)
 
 print(텐서4.shape)
 # 출력값 : (2,3)
-'''
+```
 
 ## 2. 텐서플로어 실습(1) - 경사하강 기법을 활용한 반복학습으로 신발 사이즈 구하기 실습
-'''python
+```python
 import tensorflow as tf
 
 # 입력 및 실제값 설정 (float32로 설정 - 정확도 및 효율성)
@@ -101,4 +101,4 @@ try:
 
 except ValueError:
     print("잘못된 입력입니다. 숫자를 입력해 주세요.")
-    '''
+    ```
