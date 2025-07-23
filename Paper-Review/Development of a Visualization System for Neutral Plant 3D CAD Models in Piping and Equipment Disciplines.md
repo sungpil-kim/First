@@ -29,6 +29,8 @@
   1. 카탈로그(Catalog) : 특정 타입에 해당되는 기자재의 사양 정보 앖의 목록, 형상 정보 등이 저장
   2. 사양 정보 값(Property Value) : 사양 정보에 대한 값이 저장
  
-  fig와 설명을 참조하여 참고용으로 아래 그림과 같이 구성해보았다. pipesegment의 일부분이 입력값으로 오게 
+ - fig와 설명을 참조하여 참고용으로 아래 그림과 같이 구성해보았다. pipesegment의 일부분이 입력되면 
 
   <img width="1923" height="927" alt="Image" src="https://github.com/user-attachments/assets/fe816f07-abb9-40ea-a625-f9131857abd0" />
+
+  - 3D 형상 정보 표현의 최소
