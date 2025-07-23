@@ -12,21 +12,21 @@
  
  - 저자는 가시화를 위해 중립 메타 모델을 확장한 스펙-카탈로그 모델로 변환하였다. 기존의 중립 모델이 Piping system이라는 큰 틀에서 분류되었다면, 해당 모델을 통해서 각각의 기자재를 식별하였다. 중립 스펙-카탈로그 모델은 스펙, 카탈로그, 분류체계 모델로 구성된다. 각각의 모델에 대한 설명은 아래와 같다.
 
-스펙 모델(Spec model)
-스펙(SPEC) : 조건별로 해당되는 카탈로그의 식별 역할
-필터(SelectionFilter) : 기자재 선정을 위한 값 저장
-필터클래스(SelectionFilterClass) : 기자재를 타입별로 선정하기 위한 속성 저장
-속성 값(AttributeValue) : 속성에 대한 값을 저장하는 정보 객체
-속성(Attribut) : 기자재 선정 시 필요한 속성 정보 저장 객체
+ 스펙 모델(Spec model)
+  스펙(SPEC) : 조건별로 해당되는 카탈로그의 식별 역할
+  필터(SelectionFilter) : 기자재 선정을 위한 값 저장
+  필터클래스(SelectionFilterClass) : 기자재를 타입별로 선정하기 위한 속성 저장
+  속성 값(AttributeValue) : 속성에 대한 값을 저장하는 정보 객체
+  속성(Attribut) : 기자재 선정 시 필요한 속성 정보 저장 객체
 
-중립 분류체계 모델(Part classification model)
-클래스(Class) : 기자재 타입에 따른 사양 정보 저장
-사양(Property) : 기자재 타입에 따른 사양 정보 저장
-코드마스터(CodeMaster) : 기자재에 대한 속성 및 사양 정보에서 곹오적으로 기자재에서 사용되는 값들을 Code의 형태로 저장하는 정보 객체
-코드(Code) : 값 단위(UnitOfValue), 열거 항목(EnumerationItem), 열거 유형(EnumerationType)
+ 중립 분류체계 모델(Part classification model)
+  클래스(Class) : 기자재 타입에 따른 사양 정보 저장
+  사양(Property) : 기자재 타입에 따른 사양 정보 저장
+  코드마스터(CodeMaster) : 기자재에 대한 속성 및 사양 정보에서 곹오적으로 기자재에서 사용되는 값들을 Code의 형태로 저장하는 정보 객체
+  코드(Code) : 값 단위(UnitOfValue), 열거 항목(EnumerationItem), 열거 유형(EnumerationType)
 
-중립 카탈로그 모델(Catalog Model)
-카탈로그(Catalog) : 특정 타입에 해당되는 기자재의 사양 정보 앖의 목록, 형상 정보 등이 저장
-사양 정보 값(Property Value) : 사양 정보에 대한 값이 저장
+ 중립 카탈로그 모델(Catalog Model)
+  카탈로그(Catalog) : 특정 타입에 해당되는 기자재의 사양 정보 앖의 목록, 형상 정보 등이 저장
+  사양 정보 값(Property Value) : 사양 정보에 대한 값이 저장
 
   <img width="1923" height="927" alt="Image" src="https://github.com/user-attachments/assets/fe816f07-abb9-40ea-a625-f9131857abd0" />
