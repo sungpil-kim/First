@@ -39,7 +39,7 @@
 
 ## 4. 중립 플랜트 3D 가시화의 과정
  - 논문 내 fig 6, 7의 모델을 통해 아래의 과정으로 3D CAD의 가시화가 진행된다.
- - 1. User ⇒ VisualizeAPP (User의 데이터 선택)
+   1. User ⇒ VisualizeAPP (User의 데이터 선택)
    2. VisualizeAPP ⇒ VisualizeDocument (트리뷰 데이터 시스템에 요청)
    3. VisualizeDocument -> VisualizeMainFrame (트리뷰 업데이트)
    4. VisualizeMainFrame -> VisualizeView (3D 형상 표시 영역 생성)
