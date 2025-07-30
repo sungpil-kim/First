@@ -36,3 +36,14 @@
 ## 중립 플랜트 3D CAD 모델 가시화
   -  비형상 정보(XML 형식)의 파일을 트리 형태로 목록을 보여주고, 각각의 설계 정보를 속성 창을 통해 확인. 필요한 부품, 모델을 선택할 시, SAT파일을 메쉬 형식으로 변환 후 3D 형상 정보를 가시화한다. 이때 형상 강조(highlight) 기능을 제공한다.<br>
   ⇒ B-REP을 MESH로 바꾸는 이유는 렌더링 효율을 위해서로 파악된다.
+
+## 중립 플랜트 3D 가시화의 과정
+ - 논문 내 fig 6, 7의 모델을 통해 아래의 과정으로 3D CAD의 가시화가 진행된다.
+ - 1. User ⇒ VisualizeAPP (User의 데이터 선택)
+   2. VisualizeAPP ⇒ VisualizeDocument (트리뷰 데이터 시스템에 요청)
+   3. VisualizeDocument -> VisualizeMainFrame (트리뷰 업데이트
+   4. VisualizeMainFrame -> VisualizeView (3D 형상 표시 영역 생성)
+   5. VisualizeMainFrame -> VisualizeView (속성 업데이트)
+   6. VisualizeAPP -> VisualizeDocument (강조 및 가시화 요청)
+   7. VisualizeView -> 강조(Highlight) 및 가시화(Visualize)
+   8. VisualizeAPP -> VisualizeDocument (강조 상태 업데이트)
